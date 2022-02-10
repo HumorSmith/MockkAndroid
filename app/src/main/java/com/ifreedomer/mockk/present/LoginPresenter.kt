@@ -1,7 +1,8 @@
+package com.ifreedomer.mockk.present
+
 import android.text.TextUtils
 import com.ifredomer.studyunittest.HttpManager
 import com.ifredomer.studyunittest.model.UserInfo
-import com.ifreedomer.mockk.text.MineTextUtil
 
 class LoginPresenter {
     fun login(userName: String, password: String): UserInfo? {

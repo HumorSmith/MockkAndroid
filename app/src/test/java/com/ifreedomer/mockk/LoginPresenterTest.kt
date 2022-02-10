@@ -1,6 +1,6 @@
 package com.ifreedomer.mockk
 
-import LoginPresenter
+import com.ifreedomer.mockk.present.LoginPresenter
 import android.text.TextUtils
 import com.ifredomer.studyunittest.HttpManager
 import com.ifredomer.studyunittest.model.UserInfo
