@@ -1,11 +1,11 @@
 package com.ifreedomer.mockk
 
-import com.ifreedomer.mockk.present.LoginPresenter
+import com.ifreedomer.mockk.login.present.LoginPresenter
 import android.text.TextUtils
 import com.ifredomer.studyunittest.HttpManager
 import com.ifredomer.studyunittest.model.UserInfo
 import com.ifreedomer.mockk.fake.FakeLoginInterceptor
-import com.ifreedomer.mockk.text.MineTextUtil
+import com.ifreedomer.mockk.login.text.MineTextUtil
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor

@@ -1,4 +1,4 @@
-package com.ifreedomer.mockk.text
+package com.ifreedomer.mockk.login.text
 
 object MineTextUtil {
     //    JVMStatic是必须的，否则报错
