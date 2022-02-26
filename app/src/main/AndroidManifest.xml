@@ -14,10 +14,10 @@
             android:name=".note.NoteActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

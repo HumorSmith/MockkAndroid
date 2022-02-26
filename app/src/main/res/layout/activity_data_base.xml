@@ -14,17 +14,20 @@
         tools:ignore="MissingConstraints">
 
         <RadioButton
+            android:id="@+id/title_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="标题排序" />
 
 
         <RadioButton
+            android:id="@+id/color_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="颜色排序" />
 
         <RadioButton
+            android:id="@+id/time_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="时间排序" />
@@ -32,25 +35,30 @@
     </RadioGroup>
 
 
-
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-      >
+        android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/asc_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="正序排列" />
 
 
         <RadioButton
+            android:id="@+id/desc_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="颜色排序" />
+            android:text="降序排序" />
 
 
     </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
