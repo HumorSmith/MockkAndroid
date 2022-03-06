@@ -2,7 +2,7 @@ package com.ifreedomer.mockk
 
 import com.ifreedomer.mockk.login.present.LoginPresenter
 import android.text.TextUtils
-import com.ifredomer.studyunittest.HttpManager
+import com.ifreedomer.mockk.login.HttpManager
 import com.ifredomer.studyunittest.model.UserInfo
 import com.ifreedomer.mockk.fake.FakeLoginInterceptor
 import com.ifreedomer.mockk.login.text.MineTextUtil
@@ -24,9 +24,9 @@ class LoginPresenterTest {
     }
 
     private fun mockServerConfig(interceptor: Interceptor) {
-        var client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
         val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create())
-            .baseUrl("http://localhost")
+            .baseUrl("http://www.chinsepast.com")
             .client(client).build()
         HttpManager.retrofit = retrofit
     }
@@ -69,8 +69,8 @@ class LoginPresenterTest {
 
     @Test
     fun `test login for android`() {
-        mockkStatic(MineTextUtil::isEmpty)
-        every { MineTextUtil.isEmpty(any()) } answers {
+        mockTextUtils()
+        every { TextUtils.isEmpty(any()) } answers {
             println("====static called====")
             arg<String>(0).isEmpty()
         }

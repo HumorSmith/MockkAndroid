@@ -1,7 +1,7 @@
 package com.ifreedomer.mockk.login.present
 
 import android.text.TextUtils
-import com.ifredomer.studyunittest.HttpManager
+import com.ifreedomer.mockk.login.HttpManager
 import com.ifredomer.studyunittest.model.UserInfo
 
 class LoginPresenter {
@@ -17,10 +17,10 @@ class LoginPresenter {
 
 
     fun loginAndroid(userName: String, password: String): UserInfo? {
-        if (userName.isEmpty()) {
+        if (TextUtils.isEmpty(userName)) {
             return null
         }
-        if (password.isEmpty()) {
+        if (TextUtils.isEmpty(userName)) {
             return null
         }
         return UserInfo(userName, password)
@@ -32,8 +32,5 @@ class LoginPresenter {
         }
         return HttpManager.login(userName, password)
     }
-
-
-
 
 }

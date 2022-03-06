@@ -1,4 +1,4 @@
-package com.ifredomer.studyunittest
+package com.ifreedomer.mockk.login
 
 import com.ifredomer.studyunittest.api.LoginApi
 import com.ifredomer.studyunittest.model.UserInfo
@@ -15,10 +15,10 @@ object HttpManager {
         .client(client)
         .build()
 
-
-
     suspend fun login(userName:String, password:String):UserInfo{
         val loginApi = retrofit.create(LoginApi::class.java)
         return loginApi.login(userName,password)
     }
+
+
 }
