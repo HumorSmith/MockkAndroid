@@ -1,30 +1,26 @@
 package com.ifreedomer.mockk
 
-import android.content.ClipData
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ifreedomer.mockk.login.LoginActivity
 import com.ifreedomer.mockk.note.NoteActivity
 import com.ifreedomer.mockk.note.entity.NoteEntity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.filters.LargeTest
 import com.ifreedomer.mockk.util.SimpleIdlingResource
+import org.junit.After
 import org.junit.Before
-
-
 @RunWith(AndroidJUnit4::class)
+@LargeTest
 class TestNoteActivity {
     @get:Rule
     var testRule = ActivityScenarioRule(NoteActivity::class.java)
-    lateinit var data: MutableList<NoteEntity>;
+    lateinit var data: MutableList<NoteEntity>
     var idleResource: SimpleIdlingResource? = null
     private lateinit var activity: NoteActivity
 
@@ -38,6 +34,11 @@ class TestNoteActivity {
         }
     }
 
+    @After
+    fun release() {
+        IdlingRegistry.getInstance().unregister(activity.idleResource)
+    }
+
 
     @Test
     fun testTitleSortAsc() {
@@ -48,8 +49,8 @@ class TestNoteActivity {
             .perform(ViewActions.click())
         data = activity.data
         for (i in 1 until data.size) {
-            if (data[i].title.toInt() - data[i-1].title.toInt()<0) {
-                assert(false);
+            if (data[i].title.toInt() - data[i - 1].title.toInt() < 0) {
+                assert(false)
             }
         }
     }
@@ -63,8 +64,8 @@ class TestNoteActivity {
             .perform(ViewActions.click())
         data = activity.data
         for (i in 1 until data.size) {
-            if (data[i].title.toInt() - data[i-1].title.toInt()>0) {
-                assert(false);
+            if (data[i].title.toInt() - data[i - 1].title.toInt() > 0) {
+                assert(false)
             }
         }
     }
