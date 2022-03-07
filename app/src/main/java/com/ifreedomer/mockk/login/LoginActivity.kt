@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import androidx.annotation.VisibleForTesting
 import com.ifreedomer.mockk.R
 import com.ifreedomer.mockk.login.present.LoginPresenter
 import com.ifreedomer.mockk.util.SimpleIdlingResource
@@ -16,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
         const val LOGIN_SUCCESS_TAG = "login_success"
         const val LOGIN_FAILED_TAG = "login_failed"
     }
-
+    @VisibleForTesting
     var idleResource: SimpleIdlingResource = SimpleIdlingResource()
     private val presenter = LoginPresenter()
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ifreedomer.mockk.R
@@ -18,6 +19,7 @@ import com.ifreedomer.mockk.note.use_case.AddNote
 import com.ifreedomer.mockk.note.use_case.GetNotes
 import com.ifreedomer.mockk.note.util.NoteOrder
 import com.ifreedomer.mockk.note.util.OrderType
+import com.ifreedomer.mockk.util.SimpleIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
@@ -29,6 +31,11 @@ class NoteActivity : AppCompatActivity() {
     var noteOrder: NoteOrder = NoteOrder.Title(orderType)
     val getNotes = GetNotes(NoteLocalRepository())
     var adapter: NoteAdapter? = null
+
+    @VisibleForTesting
+    var idleResource: SimpleIdlingResource = SimpleIdlingResource()
+
+    @VisibleForTesting
     var data = mutableListOf<NoteEntity>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,30 +76,30 @@ class NoteActivity : AppCompatActivity() {
 
     private fun addMockData() {
         val sharedPreferences = getSharedPreferences("mock", Context.MODE_PRIVATE)
-        val boolean = sharedPreferences.getBoolean("isFirst",false)
-        if (boolean){
+        val boolean = sharedPreferences.getBoolean("isFirst", false)
+        if (boolean) {
             return
         }
-        sharedPreferences.edit().putBoolean("isFirst",true).apply()
+        sharedPreferences.edit().putBoolean("isFirst", true).apply()
         MainScope().launch {
             withContext(Dispatchers.IO) {
                 AddNote(NoteLocalRepository()).invoke(
                     NoteEntity(
-                        1, "a", "aaaa", System.currentTimeMillis(),
+                        1, "1", "aaaa", System.currentTimeMillis(),
                         Color.RED
                     )
                 )
 
                 AddNote(NoteLocalRepository()).invoke(
                     NoteEntity(
-                        2, "b", "bbbb", System.currentTimeMillis() + 1,
+                        2, "2", "bbbb", System.currentTimeMillis() + 1,
                         Color.BLUE
                     )
                 )
 
                 AddNote(NoteLocalRepository()).invoke(
                     NoteEntity(
-                        3, "c", "cccc", System.currentTimeMillis() + 2,
+                        3, "3", "cccc", System.currentTimeMillis() + 2,
                         Color.DKGRAY
                     )
                 )
@@ -107,13 +114,17 @@ class NoteActivity : AppCompatActivity() {
     fun refreshData() {
         val notes = getNotes(noteOrder)
         data.clear()
+        idleResource.setIdleState(false)
         MainScope().launch {
+
             val visit = withContext(Dispatchers.IO) {
                 notes.first()
             }
-            Log.d("refreshData","visit = $visit  adapter = $adapter")
+            idleResource.setIdleState(true)
+            Log.d("refreshData", "visit = $visit  adapter = $adapter")
             data.addAll(visit)
             adapter?.notifyDataSetChanged()
         }
     }
+
 }

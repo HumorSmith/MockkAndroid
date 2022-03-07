@@ -24,7 +24,6 @@ import org.junit.Rule
 class TestLoginActivity {
     var idleResource: SimpleIdlingResource? = null
 
-
     @get:Rule
     var activityScenario = ActivityScenarioRule(LoginActivity::class.java)
 
